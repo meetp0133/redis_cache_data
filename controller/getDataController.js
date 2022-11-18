@@ -1,7 +1,7 @@
 const {fetchApiData} = require("../modelApi/fishWatch")
 const redisClient = require("../conn").redisClient;
 
-exports.getSpeciesData=async (req, res)=> {
+exports.getSpeciesData = async (req, res) => {
     const species = req.params.species;
     let results
     // let isCached = false;
@@ -15,9 +15,9 @@ exports.getSpeciesData=async (req, res)=> {
         if (results.length === 0) {
             throw "API returned an empty array";
         }
-        await redisClient.set(species,JSON.stringify(results),{
-            EX:60 /*3 minutes*/,
-            NX:true
+        await redisClient.set(species, JSON.stringify(results), {
+            EX: 60 /*3 minutes*/,
+            NX: true
         })/*To store data in redis*/
         // }
         res.send({
