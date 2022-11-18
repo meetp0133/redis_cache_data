@@ -1,11 +1,9 @@
-const redis = require("redis");
 const  redisClient = require("../conn").redisClient;
 
 exports.cacheData =async (req,res,next)=>{
     const species = req.params.species;
     let results;
     try{
-
         const cacheResults = await redisClient.get(species);
         if(cacheResults){
             results = JSON.parse(cacheResults);
